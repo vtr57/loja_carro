@@ -10,6 +10,9 @@ class Endereco(models.Model):
     estado = models.CharField(max_length=255)
     numero = models.CharField(max_length=255)
 
+    def __str__(self) -> str:
+        return self.rua
+
 class Loja_Unidade(models.Model):
     nome = models.CharField(max_length=255)
     telefone = PhoneNumberField(unique=True)
@@ -48,6 +51,15 @@ class Carro(models.Model):
         return self.marca
 
 class Cliente(User):
+    """
+    Modelo que representa um Cliente.
+
+    Atributos:
+        data_nascimento (DateField): A data de nascimento do cliente.
+        telefone (PhoneNumberField): O número de telefone do cliente, deve ser único.
+        avaliacao (TextField): Uma avaliação opcional sobre o cliente, com até 500 caracteres.
+        vendedor_fk (ForeignKey): Referência ao vendedor associado ao cliente.
+    """
     data_nascimento = models.DateField()
     telefone = PhoneNumberField(unique=True, null=False, blank=False)
     avaliacao = models.TextField(max_length=500, null=True, blank=True)
